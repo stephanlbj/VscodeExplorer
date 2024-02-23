@@ -25,7 +25,7 @@ function App() {
   return (
     <main>
      <VsCodeFolder 
-     explorer={explorerState}
+     tree={explorerState}
      addNode={handleAddNode}/>
     </main>
   )

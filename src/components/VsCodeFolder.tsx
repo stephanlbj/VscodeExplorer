@@ -15,54 +15,27 @@ const VsCodeFolder = ({tree, addNode}:VsFolderTypeProps) => {
  const [isInputVisible, setisInputVisible] = useState<inputType>(
   {
     visible:false,
-    isFolder: null
+    isFolder: false,
+    id:""
   }
  )
     
 
- const handleIconClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, isFolder:boolean)=>{
+ const handleIconClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, isFolder:boolean, ID:string)=>{
   
   e.stopPropagation()
 
-  if(isFolder){
-    setisInputVisible((prev)=>{
-      if(prev.visible === null){
-        return {
-          isFolder:true,
-          visible:true
+  setisInputVisible((prev)=>{
+   if(prev.id!==ID ){
+        return{
+          id:ID,  isFolder, visible:true
         }
-      } else if(prev.visible=== true){
-        return {
-          isFolder:true,
-          visible:false
-        }
-      } else {
-        return {
-          isFolder:true,
-          visible:!isInputVisible.visible
-        }
-      }
-    }) 
-  } else{
-    setisInputVisible((prev)=>{
-      if(prev.visible === null){
-        return {
-          isFolder:false,
-          visible:true
-        }
-      } else if(prev.visible=== true){
-        return {
-          isFolder:false,
-          visible:false
-        }
-      } else {
-        return {
-          isFolder:false,
-          visible:true
-        }
-      }
-    }) 
-  }
+   }else{
+    return{
+      ... prev, isFolder, visible:!prev.visible
+    }
+   }
+  })
  }
 
  const createFolder = (e:any)=>{
@@ -89,13 +62,13 @@ const VsCodeFolder = ({tree, addNode}:VsFolderTypeProps) => {
           tree.isFolder ? (
             <>
             <div 
-            onClick={(e)=>handleIconClick(e, true)}
+            onClick={(e)=>handleIconClick(e, true, tree.id)}
             style={{height:20, color:'yellow', cursor:'pointer'}}>
              <AiFillFolderAdd/>
             </div>
    
             <div 
-            onClick={(e)=>handleIconClick(e, false)}
+            onClick={(e)=>handleIconClick(e, false, tree.id)}
             style={{height:20, color:'white', cursor:'pointer'}}>
              <AiFillFileAdd/>
             </div>
