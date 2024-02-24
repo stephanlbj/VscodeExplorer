@@ -2,9 +2,10 @@ import { useCallback, useState } from 'react'
 import './App.css'
 import { Explorer } from './data'
 import VsCodeFolder from './components/VsCodeFolder'
-import { useTraverse } from './CustomFunction/useTraverse'
+import { insert } from './CustomFunction/addtoTree'
 import vsExplorer from './data/dummyData'
 import { toast } from 'react-toastify'
+import { removeObjectFromTree } from './CustomFunction/removeFromTree'
 
 
 
@@ -15,7 +16,7 @@ function App() {
 
   const [explorerState, setexplorerState] = useState<Explorer>(vsExplorer)
 
-  const {insert} = useTraverse()
+ 
 
   const handleAddNode = (ID:string, item:string, isFolder:boolean)=>{
      const finalTree = insert(explorerState, ID, item, isFolder)
@@ -30,20 +31,13 @@ function App() {
    
 
     
-  const removeFolderRecursively = (obj: Explorer, folderId: string) => {
-    obj.items = obj.items.filter(item => {
-      if (item.items) {
-        // Recursively remove items in folders
-        removeFolderRecursively(item, folderId);
-        return item.id !== folderId;
-      } 
-    });
-  };
+  
 
   const remove = useCallback((folderId: string, isFolder:boolean) => {
     setexplorerState((prevExplorerState) => {
-      const newExplorerState = { ...prevExplorerState }; // Create a shallow copy
-      removeFolderRecursively(newExplorerState, folderId);
+      const newExplorerState = { ...prevExplorerState }; 
+   
+      removeObjectFromTree(newExplorerState, folderId);
       return newExplorerState;
     });
 

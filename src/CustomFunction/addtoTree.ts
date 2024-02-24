@@ -1,10 +1,10 @@
 import { Explorer } from "../data"
 
-export const useTraverse  = ()=>{
-    function insert(tree:Explorer, folderID:string, item:string, isFolder:boolean):any{
+ 
+  export const  insert = (tree:Explorer, folderID:string, item:string, isFolder:boolean):any =>{
         
         if(tree.id === folderID && tree.isFolder){
-         tree.items.unshift({
+         tree.items.push({
             id:new Date().getTime().toString(),
             name:item,
             isFolder,
@@ -14,15 +14,14 @@ export const useTraverse  = ()=>{
          return tree
         }
                
-    let latestArray = []
-    latestArray = tree.items.map((EachTree)=>{
+    let subFolder = []
+    subFolder = tree.items.map((EachTree)=>{
       
             return insert(EachTree,folderID, item, isFolder )
     
     })
-      return {...tree, items:latestArray}
+      return {...tree, items:subFolder}
     }
 
 
-    return {insert}
-}
+  
