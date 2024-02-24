@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { Explorer, inputType } from "../data"
-import {AiFillFileAdd, AiFillFolderAdd, AiTwotoneDelete} from "../Icon/index"
+import {AiFillFileAdd, AiFillFolderAdd, MdKeyboardArrowDown ,
+   AiTwotoneDelete, MdKeyboardArrowRight} from "../Icon/index"
 
 
 
@@ -57,11 +58,36 @@ const VsCodeFolder = ({tree, addNode, removeFolder}:VsFolderTypeProps) => {
   return (
     <div>
         
-        <div style={{display:'flex', flexDirection:'row', gap:10, alignItems:'center'}}>
+        <div style={{display:'flex', flexDirection:'row',
+         gap:10, alignItems:'center'}}>
+        
+
+        <div 
+        style={{display:'flex', flexDirection:'row',
+        gap:10, alignItems:'center'}}
+        
+        onClick={()=>setOpen((prev)=>!prev)}>
+        {
+          tree.items.length > 0 && (
+            !open ? (
+            <div style={{color:'white', cursor:'pointer'}}>
+               <MdKeyboardArrowRight/>
+            </div>
+            )
+            : (
+              <div style={{color:'white', cursor:'pointer'}}>
+               <MdKeyboardArrowDown />
+            </div>
+            ) 
+          )
+        }
+        
         <p 
-        onClick={()=>setOpen((prev)=>!prev)}
+       
          style={{color:'white', cursor:'pointer'}}> {tree.isFolder ? "📁" : "📄"}
          {tree.name} </p>
+        </div>
+       
 
 
         {
