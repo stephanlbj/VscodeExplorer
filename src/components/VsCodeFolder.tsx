@@ -1,15 +1,16 @@
 import { useState } from "react"
 import { Explorer, inputType } from "../data"
-import {AiFillFileAdd, AiFillFolderAdd} from "../Icon/index"
+import {AiFillFileAdd, AiFillFolderAdd, AiTwotoneDelete} from "../Icon/index"
 
 
 
 type VsFolderTypeProps = {
   addNode: (ID: string, item: any, isFolder: boolean) => void
   tree:Explorer
+  removeFolder: (Id: string, isFolder:boolean) => void
 }
 
-const VsCodeFolder = ({tree, addNode}:VsFolderTypeProps) => {
+const VsCodeFolder = ({tree, addNode, removeFolder}:VsFolderTypeProps) => {
 
  const [open, setOpen] = useState(false)
  const [isInputVisible, setisInputVisible] = useState<inputType>(
@@ -48,6 +49,11 @@ const VsCodeFolder = ({tree, addNode}:VsFolderTypeProps) => {
    }
  }
 
+  
+  
+
+
+
   return (
     <div>
         
@@ -72,8 +78,23 @@ const VsCodeFolder = ({tree, addNode}:VsFolderTypeProps) => {
             style={{height:20, color:'white', cursor:'pointer'}}>
              <AiFillFileAdd/>
             </div>
+
+            {
+              tree.name !== "root" && (
+                <div 
+                style={{height:20, color:'red', cursor:'pointer'}}
+                onClick={()=>removeFolder(tree.id, tree.isFolder)}>
+                <AiTwotoneDelete/>
+              </div>
+              )
+            }
             </>
-          ) : null
+          ) : 
+          <div 
+          style={{height:20, color:'red', cursor:'pointer'}}
+          onClick={()=>removeFolder(tree.id, tree.isFolder)}>
+            <AiTwotoneDelete/>
+          </div>
         }
          
         </div>
@@ -104,7 +125,10 @@ const VsCodeFolder = ({tree, addNode}:VsFolderTypeProps) => {
                  
                  <VsCodeFolder 
                  addNode={addNode}
-                 tree={expo}/>
+                 tree={expo}
+                 removeFolder={removeFolder}
+                 />
+                 
                 </div>
          })}
       

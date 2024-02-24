@@ -1,7 +1,7 @@
 import { Explorer } from "../data"
 
 export const useTraverse  = ()=>{
-    function insert(tree:Explorer, folderID:string, item:any, isFolder:any):any{
+    function insert(tree:Explorer, folderID:string, item:string, isFolder:boolean):any{
         
         if(tree.id === folderID && tree.isFolder){
          tree.items.unshift({

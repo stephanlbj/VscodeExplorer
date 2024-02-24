@@ -1,5 +1,5 @@
-import { AiFillFileAdd , AiFillFolderAdd} from "react-icons/ai";
+import { AiFillFileAdd , AiFillFolderAdd, AiTwotoneDelete} from "react-icons/ai";
 
 
 
-export {AiFillFileAdd, AiFillFolderAdd }
+export {AiFillFileAdd, AiFillFolderAdd, AiTwotoneDelete }
